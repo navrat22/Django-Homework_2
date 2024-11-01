@@ -1,0 +1,32 @@
+<!-- movie_details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ movie.title }} - Detail filmu</title>
+</head>
+<body>
+    <h1>{{ movie.title }}</h1>
+    <p><strong>Rok výroby:</strong> {{ movie.year }}</p>
+    <p><strong>Režisér:</strong> {{ movie.director.first_name }} {{ movie.director.last_name }}</p>
+    <p><strong>Scénárista:</strong> {{ movie.screenplay.first_name }} {{ movie.screenplay.last_name }}</p>
+    <p><strong>Hodnocení:</strong> {{ movie.rating }}</p>
+    
+    <p><strong>Žánry:</strong>
+        {% for genre in movie.genre.all %}
+            {{ genre.name }}{% if not forloop.last %}, {% endif %}
+        {% endfor %}
+    </p>
+
+    <p><strong>Hlavní herci:</strong>
+        <ul>
+            {% for actor in movie.starring.all %}
+                <li>{{ actor.first_name }} {{ actor.last_name }}</li>
+            {% endfor %}
+        </ul>
+    </p>
+    
+    <a href="{% url 'movie_list' %}">Zpět na seznam filmů</a>
+</body>
+</html>
